@@ -1,0 +1,94 @@
+version: '3.5'
+
+networks:
+  default:
+    name: kfk
+
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper
+
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "9092:9092"
+    depends_on:
+      - "zookeeper"
+    # volumes:
+    #   - /var/run/docker.sock:/var/run/docker.sock
+    environment: &kafka-env-vars
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "test:1:1"
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_PORT: 9092
+  kafka1:
+    image: wurstmeister/kafka
+    ports:
+      - "9093:9093"
+    depends_on:
+      - "zookeeper"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      <<: *kafka-env-vars
+      KAFKA_ADVERTISED_HOST_NAME: kafka1
+      KAFKA_PORT: 9093
+  kafka2:
+    image: wurstmeister/kafka
+    ports:
+      - "9094:9094"
+    depends_on:
+      - "zookeeper"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      <<: *kafka-env-vars
+      KAFKA_ADVERTISED_HOST_NAME: kafka2
+      KAFKA_PORT: 9094
+
+  producer:
+    build: ./agents
+    # volumes:
+    # - .:/app
+    depends_on:
+      - "kafka"
+    command:
+    - python
+    - producer.py
+
+  consumer:
+    build: ./agents
+    # volumes:
+    # - .:/app
+    depends_on:
+      - "kafka"
+      - "postgres"
+    command:
+    - python
+    - consumer.py
+
+  postgres:
+    image: postgres:11.2
+    volumes:
+    - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis
+
+  superset:
+    image: amancevice/superset:0.33.0rc1
+    depends_on:
+      - redis
+      - postgres
+    environment:
+      SUPERSET_HOME: /etc/superset
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./superset/config.py:/etc/superset/superset_config.py
+      - ./data/superset:/var/lib/superset
+    user: root
