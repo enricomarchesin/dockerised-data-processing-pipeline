@@ -21,7 +21,7 @@ for i in range(10):
     future = producer.send('test', json.dumps(data).encode(encoding='utf-8'))
 
     try:
-        record_metadata = future.get(timeout=2)
+        record_metadata = future.get(timeout=5)
 
         # Successful result returns assigned partition and offset
         print("sent msg %d@%d to topic %s"%(record_metadata.offset, record_metadata.partition, record_metadata.topic))
