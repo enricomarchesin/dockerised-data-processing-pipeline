@@ -85,8 +85,8 @@ services:
     depends_on:
       - redis
       - postgres
-    environment:
-      SUPERSET_HOME: /etc/superset
+    # environment:
+    #   SUPERSET_HOME: /etc/superset
     ports:
       - "8088:8088"
     volumes:
