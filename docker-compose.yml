@@ -12,8 +12,6 @@ services:
     image: &kafka-img wurstmeister/kafka:2.12-2.2.1
     ports:
       - "9092:9092"
-    depends_on:
-      - "zookeeper"
     # volumes:
     #   - /var/run/docker.sock:/var/run/docker.sock
     environment: &kafka-env-vars
@@ -21,51 +19,53 @@ services:
       KAFKA_CREATE_TOPICS: "test:1:1"
       KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_PORT: 9092
+    depends_on:
+      - "zookeeper"
   kafka1:
     image: *kafka-img
     ports:
       - "9093:9093"
-    depends_on:
-      - "zookeeper"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    # volumes:
+    #   - /var/run/docker.sock:/var/run/docker.sock
     environment:
       <<: *kafka-env-vars
       KAFKA_ADVERTISED_HOST_NAME: kafka1
       KAFKA_PORT: 9093
+    depends_on:
+      - "zookeeper"
   kafka2:
     image: *kafka-img
     ports:
       - "9094:9094"
-    depends_on:
-      - "zookeeper"
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+    # volumes:
+    #   - /var/run/docker.sock:/var/run/docker.sock
     environment:
       <<: *kafka-env-vars
       KAFKA_ADVERTISED_HOST_NAME: kafka2
       KAFKA_PORT: 9094
+    depends_on:
+      - "zookeeper"
 
   producer:
     build: ./agents
     # volumes:
     # - .:/app
-    depends_on:
-      - "kafka"
     command:
     - python
     - producer.py
+    depends_on:
+      - "kafka"
 
   consumer:
     build: ./agents
     # volumes:
     # - .:/app
-    depends_on:
-      - "kafka"
-      - "postgres"
     command:
     - python
     - consumer.py
+    depends_on:
+      - "kafka"
+      - "postgres"
 
   postgres:
     image: postgres:11.2
