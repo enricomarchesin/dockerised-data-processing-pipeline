@@ -1,11 +1,11 @@
-# How to use Docker Compose to build a containerised Data Processing Pipeline
+# Dockerised Data Processing Pipeline
 
 
 ## What we are going to do
 
 For this project we are going to use Docker Compose to glue together a basic Realtime Data Processing Pipeline using free and OpenSource software. 
 
-It's a (self hosted) dockerisation of the work done in Spring 2019 by Sahil Dadia and Roman Golovnya for a series of workshops presented at the Data Science and Engineering Club, a friendly and (very!) hands on meetup organised by Roman Golovnya in Dublin.
+It's the supporting repository for a presentation I made in July 2019, for a (self hosted) dockerisation of the work done in Spring 2019 by Sahil Dadia in a series of workshops presented at the Data Science and Engineering Club, a friendly and (very!) hands-on meetup organised by Roman Golovnya in Dublin.
 
 
 ## What's the tech stack
