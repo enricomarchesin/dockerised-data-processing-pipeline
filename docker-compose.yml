@@ -9,7 +9,7 @@ services:
     image: wurstmeister/zookeeper
 
   kafka:
-    image: wurstmeister/kafka
+    image: &kafka-img wurstmeister/kafka:2.12-2.2.1
     ports:
       - "9092:9092"
     depends_on:
@@ -22,7 +22,7 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_PORT: 9092
   kafka1:
-    image: wurstmeister/kafka
+    image: *kafka-img
     ports:
       - "9093:9093"
     depends_on:
@@ -34,7 +34,7 @@ services:
       KAFKA_ADVERTISED_HOST_NAME: kafka1
       KAFKA_PORT: 9093
   kafka2:
-    image: wurstmeister/kafka
+    image: *kafka-img
     ports:
       - "9094:9094"
     depends_on:
