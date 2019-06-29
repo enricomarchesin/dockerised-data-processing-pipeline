@@ -5,7 +5,7 @@
 
 For this project we are going to use Docker Compose to glue together a basic Realtime Data Processing Pipeline using free and OpenSource software. 
 
-It's the supporting repository for a presentation I made in July 2019, for a (self hosted) dockerisation of the work done in Spring 2019 by Sahil Dadia in a series of workshops presented at the Data Science and Engineering Club, a friendly and (very!) hands-on meetup organised by Roman Golovnya in Dublin.
+It's the supporting repository for a presentation I made in July 2019, for a (self hosted) dockerisation of the work done in Spring 2019 by Sahil Dadia in a [series of workshops](https://github.com/sdadia/automating_e_commerce) presented at the [Data Science and Engineering Club](https://www.meetup.com/Data-Science-and-Engineering-Club/), a friendly and (very!) hands-on meetup organised by Roman Golovnya in Dublin.
 
 
 ## What's the tech stack
@@ -101,6 +101,7 @@ docker-compose run producer
 
 This will generate 10 random data records and send the to the Kafka cluster. You can run it a few times if you want more fake records to be generated.
 
+_(NOTE: it's heavily "inspired" by [Sahil's random data generator](https://github.com/sdadia/automating_e_commerce/blob/master/notebooks_code/dublin_data_creation.py) )_ 😅
 
 ## Consume the data
 
