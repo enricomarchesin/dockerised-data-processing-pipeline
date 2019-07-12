@@ -99,7 +99,7 @@ To create some fake data run:
 docker-compose run producer
 ```
 
-This will generate 10 random data records and send the to the Kafka cluster. You can run it a few times if you want more fake records to be generated.
+This will generate 100 random data records and send them to the Kafka cluster. You can run it a few times if you want more fake records to be generated.
 
 _(NOTE: it's heavily "inspired" by [Sahil's random data generator](https://github.com/sdadia/automating_e_commerce/blob/master/notebooks_code/dublin_data_creation.py) )_ 😅
 

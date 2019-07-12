@@ -16,7 +16,7 @@ data_generator = DublinStoreGenerator()
 counter = itertools.count()
 
 # while True:
-for i in range(10):
+for i in range(100):
     data = data_generator.generate_data_json()
     future = producer.send('test', json.dumps(data).encode(encoding='utf-8'))
 
